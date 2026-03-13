@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@theme {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050510;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glowing text effect */
+.glow-text {
+  text-shadow:
+    0 0 10px rgba(0, 255, 255, 0.5),
+    0 0 40px rgba(0, 255, 255, 0.2),
+    0 0 80px rgba(0, 255, 255, 0.1);
+}
+
+.glow-text-pink {
+  text-shadow:
+    0 0 10px rgba(255, 0, 200, 0.5),
+    0 0 40px rgba(255, 0, 200, 0.2);
+}
+
+/* Neon border glow */
+.neon-border {
+  box-shadow:
+    0 0 5px rgba(0, 255, 255, 0.3),
+    0 0 20px rgba(0, 255, 255, 0.1),
+    inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    #050510, #0a0a2e, #1a0a2e, #050510
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Pulse ring animation */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* Scanline effect */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, 0.015) 2px,
+    rgba(0, 255, 255, 0.015) 4px
+  );
+  pointer-events: none;
+}
+
+/* Floating particles */
+@keyframes float-up {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* Timer digit flip animation */
+@keyframes digit-in {
+  0% { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+.digit-flip {
+  animation: digit-in 0.3s ease-out;
+}
+
+/* Editable field styling */
+.editable-field {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.editable-field:hover {
+  border-color: rgba(0, 255, 255, 0.3);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.editable-field:focus {
+  outline: none;
+  border-color: rgba(0, 255, 255, 0.6);
+  background: rgba(0, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+}
+
+/* Progress bar glow */
+@keyframes progress-glow {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 3px currentColor); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 8px currentColor); }
+}
+
+.progress-glow {
+  animation: progress-glow 2s ease-in-out infinite;
+}
+
+/* Button hover effect */
+.btn-futuristic {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-futuristic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-futuristic:hover::before {
+  left: 100%;
+}
+
+/* Danger zone styles */
+.danger-glow {
+  text-shadow:
+    0 0 10px rgba(255, 50, 50, 0.7),
+    0 0 40px rgba(255, 50, 50, 0.3);
+}
+
+@keyframes urgency-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.urgency-pulse {
+  animation: urgency-pulse 0.5s ease-in-out infinite;
+}
