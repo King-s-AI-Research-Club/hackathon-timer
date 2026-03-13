@@ -13,6 +13,21 @@ function App() {
   const [inputSeconds, setInputSeconds] = useState('00')
   const prevTimeRef = useRef({ h: 0, m: 0, s: 0 })
   const [changedUnit, setChangedUnit] = useState<'h' | 'm' | 's' | null>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+    } else {
+      document.exitFullscreen()
+    }
+  }, [])
 
   const hours = Math.floor(remainingSeconds / 3600)
   const minutes = Math.floor((remainingSeconds % 3600) / 60)
@@ -137,6 +152,15 @@ function App() {
       <div className="absolute top-4 right-4 w-16 h-16 border-t-2 border-r-2 border-cyan-500/40" />
       <div className="absolute bottom-4 left-4 w-16 h-16 border-b-2 border-l-2 border-cyan-500/40" />
       <div className="absolute bottom-4 right-4 w-16 h-16 border-b-2 border-r-2 border-cyan-500/40" />
+
+      {/* Fullscreen button */}
+      <button
+        onClick={toggleFullscreen}
+        className="absolute top-6 right-6 z-20 p-2.5 border border-cyan-500/30 rounded-lg bg-gray-900/60 backdrop-blur-sm text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/60 hover:shadow-[0_0_15px_rgba(0,255,255,0.2)] transition-all duration-300 active:scale-90"
+        title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+      >
+        {isFullscreen ? <ExitFullscreenIcon /> : <FullscreenIcon />}
+      </button>
 
       {/* Title */}
       <div className="relative z-10 mb-8">
@@ -430,6 +454,22 @@ function CheckIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+    </svg>
+  )
+}
+
+function FullscreenIcon() {
+  return (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" />
+    </svg>
+  )
+}
+
+function ExitFullscreenIcon() {
+  return (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3" />
     </svg>
   )
 }
